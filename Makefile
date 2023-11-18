@@ -11,3 +11,9 @@ dev:
 
 build:
 	pnpm run generate
+
+start:
+	pnpm run start
+
+serve:
+	pnpm run serve
