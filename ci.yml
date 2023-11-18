@@ -1,0 +1,14 @@
+prepare:
+  steps:
+    - name: download packages
+      command: npm install
+    - name: lint
+      command: npm run lint
+    - name: build
+      command: npm run generate
+test:
+  steps: []
+run:
+  steps:
+    - name: start
+      command: npx serve .output/public
