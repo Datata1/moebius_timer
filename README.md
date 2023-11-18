@@ -2,7 +2,7 @@
 
 A synchronized animation first countdown timer with IANA timezone support that might count to infinity and beyond.
 
-![img](https://moebius.sev.wtf/theme_astronaut.webp)
+![img](https://moebius.sev.wtf/img/theme_astronaut.webp)
 
 ## *WIP*
 
