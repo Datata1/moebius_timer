@@ -11,9 +11,6 @@ dependencies:
   '@nuxtjs/google-fonts':
     specifier: ^3.0.2
     version: 3.0.2
-  moment:
-    specifier: ^2.29.4
-    version: 2.29.4
   moment-timezone:
     specifier: ^0.5.43
     version: 0.5.43
