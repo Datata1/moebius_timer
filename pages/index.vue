@@ -7,7 +7,7 @@
         v-if="showFirstDiv"
         class="h-screen m-0 p-0 absolute flex flex-col overflow-hidden -ml-[6px]"
       >
-        <AppCountdown :heatingUp="heatingUp" :countdown="d(countdownRef)" />
+        <AppCountdown :heating-up="heatingUp" :countdown="d(countdownRef)" />
       </div>
     </Transition>
     <Transition name="slide-y">
@@ -15,7 +15,7 @@
         v-if="!showFirstDiv"
         class="h-screen m-0 p-0 absolute flex flex-col overflow-hidden -ml-[6px]"
       >
-        <AppCountdown :heatingUp="heatingUp" :countdown="d(countdownRef)" />
+        <AppCountdown :heating-up="heatingUp" :countdown="d(countdownRef)" />
       </div>
     </Transition>
   </div>
@@ -35,10 +35,10 @@ const route = useRoute();
 const d = await useFormatSecondsToDHMS();
 
 // default setup
-const end = route.query["end"]?.toString() ?? "2023-11-29 23:59:59";
-const debug = ref<boolean>(route.query["debug"] === "true" ? true : false);
+const end = route.query.end?.toString() ?? "2023-11-29 23:59:59";
+const debug = ref<boolean>(route.query.debug === "true");
 const timezone =
-  route.query["timezone"]?.toString() ??
+  route.query.timezone?.toString() ??
   Intl.DateTimeFormat().resolvedOptions().timeZone.toString();
 
 // toggle div to run animation
@@ -54,6 +54,7 @@ const heatingUp = ref<boolean>(true);
 // calculate the remaining seconds
 const countdownRef = computed(() => {
   // triggers the reactivity of this computed
+  // eslint-disable-next-line
   showFirstDiv.value;
 
   // console.log(moment.tz(end, timezone).clone().local().unix() * 1000);

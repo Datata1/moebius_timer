@@ -67,7 +67,7 @@ onMounted(() => {
         delay: Math.random() * -speed,
         duration: speed,
         iterations: 1000,
-      }
+      },
     );
   }
 });
