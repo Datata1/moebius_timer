@@ -10,7 +10,7 @@ This repository is a work in progress
 
 ## Demo
 
-You can find a live demo here: [moebius.sev.wtf](https://moebius.sev.wtf/) (host on [Codesphere](https://codesphere.com)).
+You can find a live demo here: [https://47235-3000.2.codesphere.com](https://47235-3000.2.codesphere.com) (host on [Codesphere](https://codesphere.com)).
 
 ## Framework
 
