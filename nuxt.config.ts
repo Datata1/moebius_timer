@@ -17,11 +17,11 @@ export default defineNuxtConfig({
         class: "overflow-hidden",
       },
       script: [
-        {
-          src: "https://use.ntpjs.org/ntp.js",
-          async: true,
-          defer: true,
-        },
+        // {
+        //   src: "https://use.ntpjs.org/ntp.js",
+        //   async: true,
+        //   defer: true,
+        // },
       ],
     },
   },

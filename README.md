@@ -50,6 +50,7 @@ https://47235-3000.2.codesphere.com?endDate=2024-01-01+00:00:00&debug=true&timez
 
 - NTPJS sometimes creates a wrong offset of up to three seconds.
   - Clearing the localStorage (or complete cache) solves the issue
+    - Disabled for now
 
 ## Synchronization
 
