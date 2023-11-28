@@ -2,11 +2,7 @@
 
 A synchronized animation first countdown timer with IANA timezone support that might count to infinity and beyond.
 
-![img](https://47235-3000.2.codesphere.com/img/theme_astronaut.webp)
-
-## *WIP*
-
-This repository is a work in progress
+![img](https://47235-3000.2.codesphere.com/img/theme_astronaut.webp?)
 
 ## Demo
 
@@ -28,7 +24,7 @@ moebius is generated as SPA (static site) and does neither rely on a database no
   - Does not depend on correct system clock
   - Executes at full seconds (unix cron like)
 - IANA Timezone support
-  - Countdown will wordlwide end at the same moment, no matter the timezone a user has
+  - Countdown will worldwide end at the same second, independet of a users timezone
 
 ## TODO
 - Add optional callback URL on finish
@@ -40,9 +36,15 @@ moebius is generated as SPA (static site) and does neither rely on a database no
 moebius can be configured using query strings. \
 The following query strings are available:
 - endDate: DateTime = the date time to countdown towards in a [supported](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date?retiredLocale=de#date_time_string_format) format, defaults to `2024-01-01 00:00:00`
+  - example: https://47235-3000.2.codesphere.com?endDate=2024-07-24+09:21:00
 - debug: Boolean = show debug information, defaults to `false`
+  - example: https://47235-3000.2.codesphere.com?debug=true
 - timezone: String = any IANA timezone, defaults to `local timezone` of the client
   - Defines the timezone of the given date
+  - example: https://47235-3000.2.codesphere.com?timezone=America/New_York
+
+Full example: \
+https://47235-3000.2.codesphere.com?endDate=2024-01-01+00:00:00&debug=true&timezone=America/New_York
 
 ## Synchronization
 
