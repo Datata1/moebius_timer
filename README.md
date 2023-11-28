@@ -46,6 +46,11 @@ The following query strings are available:
 Full example: \
 https://47235-3000.2.codesphere.com?endDate=2024-01-01+00:00:00&debug=true&timezone=America/New_York
 
+## Known Bugs
+
+- NTPJS sometimes creates a wrong offset of up to three seconds.
+  - Clearing the localStorage (or complete cache) solves the issue
+
 ## Synchronization
 
 The current date-time is synchronized before the timer starts using [nptjs.org](https://www.ntpjs.org/) against trusted servers. \

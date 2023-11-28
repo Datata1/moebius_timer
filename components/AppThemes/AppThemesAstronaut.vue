@@ -2,11 +2,11 @@ import type nuxtConfig from '~/nuxt.config';
 <template>
   <div ref="universe" class="w-full">
     <NuxtImg
-      :src="`/img/1.jpg`"
+      src="/img/1.webp"
       class="absolute w-[100vw] h-full object-cover saturate-150"
     />
     <NuxtImg
-      :src="`/img/1_mask.png`"
+      src="/img/1_mask.webp"
       class="absolute w-[100vw] h-full object-cover z-20 saturate-150"
     />
   </div>
