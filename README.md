@@ -2,7 +2,7 @@
 
 A synchronized animation first countdown timer with IANA timezone support that might count to infinity and beyond.
 
-![img](https://moebius.sev.wtf/img/theme_astronaut.webp)
+![img](https://47235-3000.2.codesphere.com/img/theme_astronaut.webp)
 
 ## *WIP*
 
@@ -10,11 +10,11 @@ This repository is a work in progress
 
 ## Demo
 
-You can find a live demo here: [https://47235-3000.2.codesphere.com](https://47235-3000.2.codesphere.com) (host on [Codesphere](https://codesphere.com)).
+You can find a live demo here: [https://47235-3000.2.codesphere.com](https://47235-3000.2.codesphere.com) (hosted on [Codesphere](https://codesphere.com)).
 
 ## Framework
 
-This countdown is written in [typescript](https://www.typescriptlang.org/) using [Nuxt3](https://nuxt.com/) and [Tailwind](https://tailwindcss.com/).
+moebius is written in [typescript](https://www.typescriptlang.org/) using [Nuxt3](https://nuxt.com/) and [Tailwind](https://tailwindcss.com/).
 
 ## Deployment
 
@@ -22,7 +22,7 @@ moebius is generated as SPA (static site) and does neither rely on a database no
 
 ## Features
 
-- ~Theme support~
+- Theme support
 - Configurable
 - Synchronized
   - Does not depend on correct system clock
@@ -31,21 +31,15 @@ moebius is generated as SPA (static site) and does neither rely on a database no
   - Countdown will wordlwide end at the same moment, no matter the timezone a user has
 
 ## TODO
-
-- Make responsive
-- Add theme support
-  - Add more themes
-- Add configuration wizard
-  - Add option to choose a theme instead of using a random one
 - Add optional callback URL on finish
 - Refactor default values 
-  - Defaults to `2023-11-28 23:59:59` as it marks the end of the [Codesphere countdown challenge](https://codesphere.com/challenge).
+  - Defaults to `2024-01-01 00:00:00`
 
 ## Configuration
 
-The countdown can be configured via query string or by using the wizard (`/wizard`). \
+moebius can be configured using query strings. \
 The following query strings are available:
-- end: DateTime = the date time to countdown towards in a [supported](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date?retiredLocale=de#date_time_string_format) format, defaults to `2023-11-28 23:59:59`
+- endDate: DateTime = the date time to countdown towards in a [supported](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date?retiredLocale=de#date_time_string_format) format, defaults to `2024-01-01 00:00:00`
 - debug: Boolean = show debug information, defaults to `false`
 - timezone: String = any IANA timezone, defaults to `local timezone` of the client
   - Defines the timezone of the given date
@@ -57,7 +51,7 @@ It is therewith independent from the local systems time.
 
 ### Heat up
 
-The timer sometimes starts a bit delayed as it is synchronized to start at an exact second like a unix cron would do.
+The timer may starts delayed (heat-up) as it is synchronizing to the next exact second like a unix cron would do.
 
 ## Themes
 
@@ -70,5 +64,3 @@ The Astronaut has been downloaded from [uhdpaper.com](https://www.uhdpaper.com/2
 It has been slightly modified by removing the Stars in favor of the self-animated 'space-dust'.
 
 The head of the Astronaut is masked and doubled to give the Theme more depth. This way, the dust randomly moves in before and behind the head itself.
-
-Hovering the Astronaut increases the saturation using a transition.

@@ -4,7 +4,9 @@
     <span
       v-if="route.query['timezone'] && route.query['timezone'] !== ''"
       class="-ml-1"
-      >: <span class="text-red-500">{{ route.query["timezone"] }}</span></span
+      >:
+      <span class="text-red-500">{{ route.query["timezone"] }}</span> (expected:
+      valid IANA Timezone)</span
     >
   </div>
 </template>

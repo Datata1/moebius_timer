@@ -11,7 +11,14 @@ export default {
   ],
   theme: {
     fontFamily: {
-      body: "Poppins",
+      body: "Roboto Mono",
+    },
+    screens: {
+      sm: "1px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
     },
     extend: {
       colors: {

@@ -1,28 +1,21 @@
 <template>
-  <AppThemesSpace />
+  <AppThemesAstronaut
+    v-if="moebius.theme === MoebiusTheme.ASTRONAUT"
+    :moebius="moebius"
+  />
 
-  <div class="h-full w-[20vw] bg-black/50 z-30">
-    <Transition name="slide-y">
-      <div
-        v-if="showFirstDiv"
-        class="h-screen m-0 p-0 absolute flex flex-col overflow-hidden -ml-[6px]"
-      >
-        <AppCountdown :heating-up="heatingUp" :countdown="d(countdownRef)" />
-      </div>
-    </Transition>
-    <Transition name="slide-y">
-      <div
-        v-if="!showFirstDiv"
-        class="h-screen m-0 p-0 absolute flex flex-col overflow-hidden -ml-[6px]"
-      >
-        <AppCountdown :heating-up="heatingUp" :countdown="d(countdownRef)" />
-      </div>
-    </Transition>
-  </div>
-
-  <div v-if="debug" class="absolute w-96 top-0 left-0">
+  <div v-if="moebius.debug" class="absolute w-96 top-0 left-0">
     <pre
-      >{{ { ...d(countdownRef), ...{ timezone, debug, end } } }}
+      >{{
+        {
+          ...{
+            countdown: d(moebius.countdown),
+            timezone: moebius.timezone,
+            debug: moebius.debug,
+            endDate: moebius.endDate,
+          },
+        }
+      }}
   </pre
     >
   </div>
@@ -30,63 +23,70 @@
 
 <script lang="ts" setup>
 import moment from "moment-timezone";
+import { type Moebius, MoebiusTheme } from "~/types/Moebius";
 
 const route = useRoute();
 const d = await useFormatSecondsToDHMS();
 
 // default setup
-const end = route.query.end?.toString() ?? "2023-11-29 23:59:59";
-const debug = ref<boolean>(route.query.debug === "true");
-const timezone =
-  route.query.timezone?.toString() ??
-  Intl.DateTimeFormat().resolvedOptions().timeZone.toString();
+const moebius = ref<Moebius>({
+  endDate: route.query.endDate?.toString() ?? "2024-01-01 00:00:00",
+  timezone:
+    route.query.timezone?.toString() ??
+    Intl.DateTimeFormat().resolvedOptions().timeZone.toString(),
+  debug: route.query.debug === "true",
+  countdown: -1,
+  heatUp: true,
+  theme: MoebiusTheme.ASTRONAUT,
+});
 
-// toggle div to run animation
-const showFirstDiv = ref<boolean>(false);
+// validate input
+if (!moment.tz.zone(moebius.value.timezone)) {
+  navigateTo("error/timezone?timezone=" + moebius.value.timezone);
+}
 
-if (!moment.tz.zone(timezone)) {
-  navigateTo("error/timezone?timezone=" + timezone);
+if (!moment(new Date(moebius.value.endDate)).isValid()) {
+  navigateTo("error/date?endDate=" + moebius.value.endDate);
 }
 
 // add delay to synchronize the countdown to a full second (cron like)
-const heatingUp = ref<boolean>(true);
-
 // calculate the remaining seconds
-const countdownRef = computed(() => {
+const tickCountdown = () => {
   // triggers the reactivity of this computed
-  // eslint-disable-next-line
-  showFirstDiv.value;
+  const endDate =
+    moment
+      .tz(moebius.value.endDate, moebius.value.timezone)
+      .clone()
+      .local()
+      .unix() * 1000;
 
-  // console.log(moment.tz(end, timezone).clone().local().unix() * 1000);
-
-  const endDate = moment.tz(end, timezone).clone().local().unix() * 1000;
+  if (Number.isNaN(endDate)) {
+    navigateTo("error/date?endDate=" + moebius.value.endDate);
+  }
 
   const now = new Date().getTime();
   const distanceInMs = endDate - now;
-  // add additional second to synchronize with the end of the animation
-  return Math.floor(distanceInMs / 1000) + 1;
-});
+  moebius.value.countdown = Math.floor(distanceInMs / 1000) + 1;
+};
 
 // initiate & synchronize the countdown timer
 const initTimer = () => {
   const now = new Date();
-  const millisecondsUntilNextSecond = 1000 - now.getMilliseconds();
-  // delay countdown to start with a fill second (synchronize)
-  const timeUntilNextSecond =
-    millisecondsUntilNextSecond + 1000 * (1 - (now.getSeconds() % 1));
+  let delayMs = 1000 - now.getMilliseconds();
+  delayMs = delayMs === 1000 ? 0 : delayMs;
 
   setTimeout(() => {
-    heatingUp.value = false;
-    showFirstDiv.value = !showFirstDiv.value;
+    moebius.value.heatUp = false;
+    tickCountdown();
 
     const countdownTimer = setInterval(() => {
-      if (countdownRef.value > 0) {
-        showFirstDiv.value = !showFirstDiv.value;
+      if (moebius.value.countdown > 0) {
+        tickCountdown();
       } else {
         clearInterval(countdownTimer);
       }
     }, 1000);
-  }, timeUntilNextSecond);
+  }, delayMs);
 };
 
 onMounted(() => {
